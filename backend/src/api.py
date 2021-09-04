@@ -17,7 +17,7 @@ CORS(app)
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 !! Running this function will add one
 '''
-db_drop_and_create_all()
+#db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -32,7 +32,7 @@ db_drop_and_create_all()
 def get_drinks():
     try:
         drinks = Drink.query.all()
-
+        
         return jsonify ({
             'success': True,
             'drinks': [drink.short() for drink in drinks]
@@ -73,6 +73,30 @@ def get_drinks_detail(jwt):
         or appropriate status code indicating reason for failure
 '''
 
+@app.route("/drinks", methods=['POST'])
+@requires_auth('post:drinks')
+def add_drink(jwt):
+
+    body = request.get_json()
+
+    if not ('title' in body and 'recipe' in body):
+        abort(422)
+
+    title = body.get('title')
+    recipe = body.get('recipe')
+
+    try:
+        drink = Drink(title=title, recipe=json.dumps(recipe))
+        drink.insert()
+
+        return jsonify({
+            'success': True,
+            'drinks': [drink.long()],
+        })
+
+    except Exception:
+        abort(422)
+
 
 '''
 @TODO implement endpoint
@@ -86,6 +110,34 @@ def get_drinks_detail(jwt):
         or appropriate status code indicating reason for failure
 '''
 
+@app.route('/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
+def update_drink(jwt, id):
+
+    drink = Drink.query.get(id)
+
+    if drink:
+        try:
+
+            body = request.get_json()
+            title = body.get('title')
+            recipe = body.get('recipe')
+
+            if title:
+                drink.title = title
+            if recipe:
+                drink.title = recipe
+
+            drink.update()
+
+            return jsonify({
+                'success': True,
+                'drinks': [drink.long()]
+            })
+        except Exception:
+            abort(422)
+        else:
+            abort(404)
 
 '''
 @TODO implement endpoint
@@ -98,6 +150,23 @@ def get_drinks_detail(jwt):
         or appropriate status code indicating reason for failure
 '''
 
+@app.route("/drinks/<id>", methods=['DELETE'])
+@requires_auth('delete:drinks')
+def delete_drink(jwt, id):
+
+    drink = Drink.query.get(id)
+
+    if drink:
+        try:
+            drink.delete()
+            return jsonify({
+                'success': True,
+                'delete': id
+            })
+        except Exception:
+            abort(422)
+    else:
+        abort(404)
 
 # Error Handling
 '''
@@ -129,9 +198,24 @@ def unprocessable(error):
 @TODO implement error handler for 404
     error handler should conform to general task above
 '''
-
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "resource not found"
+    }), 404
 
 '''
 @TODO implement error handler for AuthError
     error handler should conform to general task above
 '''
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    return jsonify({
+        "success": False,
+        "error": ex.status_code,
+        "message": ex.error
+    }), 401
+
