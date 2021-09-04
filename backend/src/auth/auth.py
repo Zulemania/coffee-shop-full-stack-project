@@ -78,7 +78,10 @@ def get_token_auth_header():
 
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
-        abort(400)
+        raise AuthError({
+            'code': 'invalid_claims',
+            'description': 'Permissions not included.'
+        }, 400)
 
     if permission not in payload ['permissions']:
         raise AuthError({
@@ -116,6 +119,48 @@ def verify_decode_jwt(token):
             'description': 'Authorization malformed.'
         }, 401)
 
+    for key in jwks['keys']:
+        if key['kid'] == unverified_header['kid']:
+            rsa_key = {
+                'kty': key['kty'],
+                'kid': key['kid'],
+                'use': key['use'],
+                'n': key['n'],
+                'e': key['e']
+            }
+    if rsa_key:
+        try:
+            payload = jwt.decode(
+                token,
+                rsa_key,
+                algorithms=ALGORITHMS,
+                audience=API_AUDIENCE,
+                issuer='https://' + AUTH0_DOMAIN + '/'
+            )
+
+            return payload
+
+        except jwt.ExpiredDignatureError:
+            raise AuthError({
+                'code': 'token_expired',
+                'description': 'Token expired.'
+            },401)
+
+        except jwt.JWTClaimsError:
+            raise AuthError({
+                'code': 'invalid_claims',
+                'description': 'Incorrect claims. Please, check the audience and issuer.'
+            }, 401)
+        except Exception: 
+            raise AuthError({
+                'code': 'invalid_header',
+                'description': 'Unable to parse authentication token.'
+            }, 400)
+    raise AuthError({
+                'code': 'invalid_header',
+                'description': 'Unable to find the appropriate key.'
+            }, 400)
+
 '''
 @TODO implement @requires_auth(permission) decorator method
     @INPUTS
@@ -131,8 +176,16 @@ def requires_auth(permission=''):
         @wraps(f)
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
-            payload = verify_decode_jwt(token)
+            try:
+                payload = verify_decode_jwt(token)
+            except:
+                raise AuthError({
+                    'code': 'invalid_token',
+                    'description': 'Access denied due to invalid token'
+                }, 401)
+
             check_permissions(permission, payload)
+
             return f(payload, *args, **kwargs)
 
         return wrapper
