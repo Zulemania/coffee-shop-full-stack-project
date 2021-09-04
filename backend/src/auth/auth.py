@@ -39,7 +39,7 @@ def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
     auth = request.headers.get('Authorization', None)
-    
+
     if not auth:
         raise AuthError({
             'code': 'authorization_header_missing',
@@ -74,8 +74,21 @@ def get_token_auth_header():
     it should raise an AuthError if the requested permission string is not in the payload permissions array
     return true otherwise
 '''
+
+
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    if 'permissions' not in payload:
+        abort(400)
+
+    if permission not in payload ['permissions']:
+        raise AuthError({
+            'code': 'unauthorized',
+            'description': 'Permission not found.'
+        }, 403)
+    return True
+
+    
+
 
 '''
 @TODO implement verify_decode_jwt(token) method
@@ -90,8 +103,18 @@ def check_permissions(permission, payload):
 
     !!NOTE urlopen has a common certificate error described here: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 '''
+
+
 def verify_decode_jwt(token):
-    raise Exception('Not Implemented')
+    jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
+    jwks = json.loads(jsonurl.read())
+    unverified_header = jwt.get_unverified_header(token)
+    rsa_key = {}
+    if 'kid' not in unverified_header:
+        raise AuthError({
+            'code': 'invalid_header',
+            'description': 'Authorization malformed.'
+        }, 401)
 
 '''
 @TODO implement @requires_auth(permission) decorator method
