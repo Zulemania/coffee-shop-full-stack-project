@@ -17,7 +17,7 @@ CORS(app)
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 !! Running this function will add one
 '''
-#db_drop_and_create_all()
+db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -32,7 +32,7 @@ CORS(app)
 def get_drinks():
     try:
         drinks = Drink.query.all()
-        
+
         return jsonify ({
             'success': True,
             'drinks': [drink.short() for drink in drinks]
@@ -61,6 +61,7 @@ def get_drinks_detail(jwt):
         })
     except Exception:
         abort(404)
+
 
 
 '''
@@ -96,6 +97,7 @@ def add_drink(jwt):
 
     except Exception:
         abort(422)
+
 
 
 '''
@@ -136,8 +138,10 @@ def update_drink(jwt, id):
             })
         except Exception:
             abort(422)
-        else:
+    else:
             abort(404)
+
+
 
 '''
 @TODO implement endpoint
@@ -167,6 +171,8 @@ def delete_drink(jwt, id):
             abort(422)
     else:
         abort(404)
+
+
 
 # Error Handling
 '''
@@ -198,6 +204,7 @@ def unprocessable(error):
 @TODO implement error handler for 404
     error handler should conform to general task above
 '''
+
 @app.errorhandler(404)
 def not_found(error):
     return jsonify({
@@ -218,4 +225,5 @@ def handle_auth_error(ex):
         "error": ex.status_code,
         "message": ex.error
     }), 401
+
 
