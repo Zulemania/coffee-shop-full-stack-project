@@ -15,6 +15,3 @@ Thumbs.db
 pip
 python
 ../.gitignore
-src/env/
-../env/
-./frontend/env/
