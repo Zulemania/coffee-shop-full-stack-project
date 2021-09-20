@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "33ce695c-2e49-44c9-947d-1f3ca1c273e0",
+		"_postman_id": "681c5015-0769-44d8-8974-1b223e71c8b9",
 		"name": "udacity-fsnd-udaspicelatte",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -343,7 +343,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii1hSV9XQ0FyektNelJBVUdqMmpIOCJ9.eyJpc3MiOiJodHRwczovL2NvZmZlZS1zaG9wLWF1dGgudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMzQ4NTEwMDFjZWZhMDA3MzQ2ZDZiOCIsImF1ZCI6ImNvZmZlZSIsImlhdCI6MTYzMTc4OTI4NSwiZXhwIjoxNjMxNzk2NDg1LCJhenAiOiJZdUJhOWs2UWY2TjUyOGNVbHNQS1FRRU02dXBxTXdYSiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmRyaW5rcy1kZXRhaWwiXX0.F2PIHy4MLav1c4nyT97_aJcVsev8IgBeyhyTxnYgu_6E0cHKS1zKsBJDSTcT_kYD0slYKQCiEpSRcHPdegsUkLLE6GxAhWQ0VHSpCrpOM6vwEWA_G65tiJWWwDnKAp_DADM96e93SLSnTOIL0Y9oFnlMBHEBBGJkc1qqk2x4Hy7cAvX-VDtKC--8uZGXOD7naXlgH5_hYWbX6-6NB2ohFKk3srT_yKMbtkcj4DSPgSaiC_-GsC2VgKmXhkw9Gbw1ttICsHYKN99ZeoBj0EbIgYH4r07veGQYREw2K9qHX7yVrjowipLLV5CQkazFq1Tu8uyZbXBSUvncxJllb55AnQ",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii1hSV9XQ0FyektNelJBVUdqMmpIOCJ9.eyJpc3MiOiJodHRwczovL2NvZmZlZS1zaG9wLWF1dGgudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMzQ4NTEwMDFjZWZhMDA3MzQ2ZDZiOCIsImF1ZCI6ImNvZmZlZSIsImlhdCI6MTYzMjE0NTAyMywiZXhwIjoxNjMyMTUyMjIzLCJhenAiOiJZdUJhOWs2UWY2TjUyOGNVbHNQS1FRRU02dXBxTXdYSiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmRyaW5rcy1kZXRhaWwiXX0.dXFc9jW9yVzP3VadBmrYzoWDOhx7C9iqFqonSEzwMxr8PHoBhm-eMUPrlIDB7AKKJbbloHjHLhkXaxWyQm6E97nozLmOYwRPbpnqdWH2EMb-f2qTLWXPpDOHDgZvRox36TmRElkO5QKteRSW5CTxJ-kieL01sXa_-CPwGeoa7UTh1JNuvtGLfEJVB98OHQ-TakzBaELgEhU2gHyTMc3iii77O6LmF4am9Oh6ueVW7SzYSYAQiCrvv_y4NnkNpfUU_U6aoMLsdmyhroE-QJevHJrbq6LSluYgXwY3xh_fq6XicCb2y6AAf-Z5k3__1QsAWTo1KvJQ-nwMcIwXGrGpCg",
 						"type": "string"
 					}
 				]
@@ -469,7 +469,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Water3\",\n    \"recipe\": {\n        \"name\": \"Water\",\n        \"color\": \"blue\",\n        \"parts\": 1\n    }\n}"
+							"raw": "{\n    \"title\": \"Water3\",\n    \"recipe\": [{\n        \"name\": \"Water\",\n        \"color\": \"blue\",\n        \"parts\": 1\n    }\n}]"
 						},
 						"url": {
 							"raw": "{{host}}/drinks",
@@ -567,7 +567,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik4wTkNOVEEzTWpaQ1FUa3lRMEl6TmtORk0wWXhRVFUwT1RFMFFVVkNSRUpDT1RBME1EUXpOUSJ9.eyJpc3MiOiJodHRwczovL3VkYWNpdHktZnNuZC5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDY3MTQ4MTQ0MTcwNjk3MTI4OTMiLCJhdWQiOlsiZGV2IiwiaHR0cHM6Ly91ZGFjaXR5LWZzbmQuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU2MDg4OTU5NiwiZXhwIjoxNTYwODk2Nzk2LCJhenAiOiJPSjVwQk9ZSURFa09FVFVmUWo1ajdsSDZFTFcwMkd1MCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6ZHJpbmtzIiwiZ2V0OmRyaW5rcyIsImdldDpkcmlua3MtZGV0YWlsIiwicGF0Y2g6ZHJpbmtzIiwicG9zdDpkcmlua3MiXX0.Qk-5FC2X_RUkK00WKARYCKw_877XFuaT5ND3f3ObD9Ly1e1GMfJXhi3McV12binGGCw6x241erIjGB0t8WbWdU3bYpIVD1klZ64DVLQ8Q2LQ2NzB3eFEOgGLL85az1jIDbRiuATIRbbBOWILPJ6h6KR9L5hExklf2zuj3Bnwm7zMRmVpIJmjrUt4bWjtTOguOwJ0IVQsk4PDjGxzwfrUWFCFNDqN_u15JNLxeH21C-QvCpHs3D4Aodeh1qFUuWHfK_Gyfu91AitXPTVZRX9eZbUOVkGT3JMn4sKn9oGaKFTx2E-Y4DmoECG0uWImbX_wiRjx4aTeo7Q7hKSReMToPA",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii1hSV9XQ0FyektNelJBVUdqMmpIOCJ9.eyJpc3MiOiJodHRwczovL2NvZmZlZS1zaG9wLWF1dGgudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDYxMzQ3ZTA3OGZmYjc0MDA3MWRhMTdjMCIsImF1ZCI6ImNvZmZlZSIsImlhdCI6MTYzMjE0NDg3MiwiZXhwIjoxNjMyMTUyMDcyLCJhenAiOiJZdUJhOWs2UWY2TjUyOGNVbHNQS1FRRU02dXBxTXdYSiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmRyaW5rcyIsImdldDpkcmlua3MtZGV0YWlsIiwicGF0Y2g6ZHJpbmtzIiwicG9zdDpkcmlua3MiXX0.N_LVfRfu3zXpW7y_VqVGGwCRH5dkrYyljT0gYAIKdQfRqGyIu7-9OA-k-fdHyz-E9fCGqNLmzmKtuFlhfX30oc82sUebwxYmMDxetMW8yKU95Pu-8fMwu0945xymXaeXzpExt7YwjWLnQzmM8DdS8K59VRWjni6Y8LQi67DeDyVL4MM7rSNngYXlmPJimouaNhVefDHHdo2EnFvytLD-y4TqZaOJZWwjE5xRtbfsALvMnMPkagQ9qQghj-V0_XQWh4cdrUKsbP3I2E0viPT4kXOGSOPnTYJQDypl4TPGz84g7zGDwnuQ6uLDMGvXEVNZ9UFVpX1xwPocxWwElDFfHg",
 						"type": "string"
 					}
 				]
