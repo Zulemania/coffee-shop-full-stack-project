@@ -93,7 +93,7 @@ def check_permissions(permission, payload):
         raise AuthError({
             'code': 'unauthorized',
             'description': 'Permission not found.'
-        }, 403)
+        }, 401)
     return True
 
     
@@ -146,7 +146,7 @@ def verify_decode_jwt(token):
 
             return payload
 
-        except jwt.ExpiredDignatureError:
+        except jwt.ExpiredSignatureError:
             raise AuthError({
                 'code': 'token_expired',
                 'description': 'Token expired.'
