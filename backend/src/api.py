@@ -166,7 +166,7 @@ def delete_drink(jwt, id):
             return jsonify({
                 'success': True,
                 'delete': id
-            })
+            }), 200
         except Exception:
             abort(422)
     else:
