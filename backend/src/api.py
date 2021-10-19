@@ -36,7 +36,7 @@ def get_drinks():
         return jsonify ({
             'success': True,
             'drinks': [drink.short() for drink in drinks]
-        })
+        }), 200
     except Exception:
             abort(404)
 
@@ -58,7 +58,7 @@ def get_drinks_detail(jwt):
         return jsonify({
             'success': True,
             'drinks': [drink.long() for drink in drinks]
-        })
+        }), 200
     except Exception:
         abort(404)
 
@@ -78,25 +78,26 @@ def get_drinks_detail(jwt):
 @requires_auth('post:drinks')
 def add_drink(jwt):
 
-    body = request.get_json()
+    if request.method == "POST":
+        body = request.get_json()
+        print(body)
+        try:
+            recipe = body['recipe']
+            if type(recipe) is dict:
+                recipe = [recipe]
 
-    if not ('title' in body and 'recipe' in body):
-        abort(422)
+            title  = body['title']
+            drink = Drink(titlt=title, recipe=json.dumps(recipe))
+            drinks = [drink.long()]
 
-    title = body.get('title')
-    recipe = body.get('recipe')
+            return jsonify({
+                'success': True,
+                'drinks': drinks
+            })
 
-    try:
-        drink = Drink(title=title, recipe=json.dumps(recipe))
-        drink.insert()
 
-        return jsonify({
-            'success': True,
-            'drinks': [drink.long()],
-        })
-
-    except Exception:
-        abort(422)
+        except Exception:
+            abort(422)
 
 
 
