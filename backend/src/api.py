@@ -87,7 +87,7 @@ def add_drink(jwt):
                 recipe = [recipe]
 
             title  = body['title']
-            drink = Drink(titlt=title, recipe=json.dumps(recipe))
+            drink = Drink(title=title, recipe=json.dumps(recipe))
             drinks = [drink.long()]
 
             return jsonify({
